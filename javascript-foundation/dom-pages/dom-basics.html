@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DOM Basics Demo</title>
+</head>
+<body>
+  <h1 id="title">DOM Basics</h1>
+  <p class="message">This page supports local DOM learning.</p>
+  <p class="message">Playwright interacts with DOM elements like these.</p>
+
+  <form id="signup-form">
+    <label for="email">Email</label>
+    <input id="email" name="email" placeholder="Enter email" />
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const title = document.querySelector('#title');
+    const messages = document.querySelectorAll('.message');
+    const emailInput = document.querySelector('#email');
+    const form = document.querySelector('#signup-form');
+
+    console.log(title.textContent);
+    console.log(messages.length);
+    console.log(title.innerText);
+
+    emailInput.setAttribute('data-topic', 'dom');
+    console.log(emailInput.getAttribute('data-topic'));
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      title.textContent = `Submitted for ${emailInput.value || 'anonymous learner'}`;
+    });
+  </script>
+</body>
+</html>
+

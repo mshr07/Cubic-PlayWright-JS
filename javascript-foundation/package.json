@@ -1,0 +1,10 @@
+{
+  "name": "javascript-foundation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run:practical": "node 12-practical-js-for-testers/run-practical-demos.js",
+    "run:async": "node 09-asynchronous-javascript/async-await.js"
+  }
+}
+

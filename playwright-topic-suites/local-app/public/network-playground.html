@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Network Playground</title>
+</head>
+<body>
+  <h1>Network Playground</h1>
+  <button id="load-products">Load products</button>
+  <button id="load-slow-response">Load slow response</button>
+  <button id="load-profile">Load authenticated profile</button>
+  <pre id="api-result"></pre>
+
+  <script>
+    async function showResult(url, options = {}) {
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        document.querySelector('#api-result').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.querySelector('#api-result').textContent = 'request failed';
+      }
+    }
+
+    document.querySelector('#load-products').addEventListener('click', () => showResult('/api/products'));
+    document.querySelector('#load-slow-response').addEventListener('click', () => showResult('/api/slow'));
+    document.querySelector('#load-profile').addEventListener('click', () => showResult('/api/profile', {
+      headers: { Authorization: 'Bearer training-token-123' }
+    }));
+  </script>
+</body>
+</html>

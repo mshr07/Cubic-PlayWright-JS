@@ -1,0 +1,10 @@
+{
+  "name": "api-testing-suites",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test -c playwright.api.config.js",
+    "report": "playwright show-report reports/html"
+  }
+}
+

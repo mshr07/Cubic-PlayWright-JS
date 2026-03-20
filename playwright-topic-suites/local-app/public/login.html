@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Page</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="login-form">
+    <label for="email">Email</label>
+    <input id="email" name="email" placeholder="Enter email" />
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" placeholder="Enter password" />
+
+    <label>
+      <input id="remember" type="checkbox" />
+      Remember me
+    </label>
+
+    <label for="role">Role</label>
+    <select id="role">
+      <option value="student">Student</option>
+      <option value="tester">Tester</option>
+    </select>
+
+    <button type="submit">Sign in</button>
+  </form>
+
+  <p id="login-message" aria-live="polite"></p>
+
+  <script>
+    const form = document.querySelector('#login-form');
+    const message = document.querySelector('#login-message');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const payload = {
+        email: document.querySelector('#email').value,
+        password: document.querySelector('#password').value
+      };
+
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+      message.textContent = result.message;
+
+      if (result.success) {
+        localStorage.setItem('auth-token', result.token);
+        sessionStorage.setItem('last-login-email', payload.email);
+        window.location.href = '/dashboard.html';
+      }
+    });
+  </script>
+</body>
+</html>
+

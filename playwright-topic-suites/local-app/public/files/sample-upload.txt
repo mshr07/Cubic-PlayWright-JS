@@ -1,0 +1,2 @@
+This file is used by Playwright file upload examples.
+

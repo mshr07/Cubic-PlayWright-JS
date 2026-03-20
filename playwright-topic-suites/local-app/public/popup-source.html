@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Popup Source</title>
+</head>
+<body>
+  <button id="open-popup">Open popup</button>
+  <script>
+    document.querySelector('#open-popup').addEventListener('click', () => {
+      window.open('/popup-target.html', '_blank');
+    });
+  </script>
+</body>
+</html>
+

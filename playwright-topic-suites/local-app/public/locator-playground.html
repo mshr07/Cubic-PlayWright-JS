@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Locator Playground</title>
+  <style>
+    body { font-family: Georgia, serif; margin: 1.5rem; }
+    .hidden { display: none; }
+    .drop-zone { border: 2px dashed #888; min-height: 60px; padding: 1rem; margin-top: 1rem; }
+    dialog { padding: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Locator Playground</h1>
+
+  <section>
+    <button id="primary-action" data-testid="save-button">Save changes</button>
+    <button id="double-click-button">Double click me</button>
+    <p id="double-click-result"></p>
+  </section>
+
+  <section>
+    <label for="full-name">Full name</label>
+    <input id="full-name" placeholder="Enter full name" />
+
+    <label for="notes">Notes</label>
+    <textarea id="notes"></textarea>
+  </section>
+
+  <section>
+    <label>
+      <input id="subscribe" type="checkbox" />
+      Subscribe to updates
+    </label>
+
+    <label for="department">Department</label>
+    <select id="department">
+      <option value="qa">QA</option>
+      <option value="dev">Development</option>
+    </select>
+  </section>
+
+  <section>
+    <ul id="dynamic-list">
+      <li class="topic-item">Locators</li>
+      <li class="topic-item">Assertions</li>
+      <li class="topic-item">Fixtures</li>
+    </ul>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Asha</td>
+          <td>Active</td>
+        </tr>
+        <tr>
+          <td>Vikram</td>
+          <td>Inactive</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <button id="toggle-details">Toggle details</button>
+    <p id="details-panel" class="hidden">Hidden details are now visible.</p>
+  </section>
+
+  <section>
+    <button id="open-dialog">Open dialog</button>
+    <dialog id="training-dialog">
+      <p>Modal opened</p>
+      <button id="close-dialog">Close</button>
+    </dialog>
+  </section>
+
+  <section>
+    <input id="date-input" type="date" />
+  </section>
+
+  <section>
+    <div id="drag-source" draggable="true">Drag me</div>
+    <div id="drop-target" class="drop-zone">Drop here</div>
+  </section>
+
+  <section>
+    <input id="file-input" type="file" />
+  </section>
+
+  <section>
+    <button id="show-alert">Show alert</button>
+    <button id="show-confirm">Show confirm</button>
+    <button id="show-prompt">Show prompt</button>
+  </section>
+
+  <section>
+    <button id="load-more">Load more items</button>
+    <div id="lazy-content"></div>
+  </section>
+
+  <section>
+    <div id="shadow-host"></div>
+  </section>
+
+  <script>
+    document.querySelector('#primary-action').addEventListener('click', () => {
+      document.title = 'Save clicked';
+    });
+
+    document.querySelector('#double-click-button').addEventListener('dblclick', () => {
+      document.querySelector('#double-click-result').textContent = 'Double click successful';
+    });
+
+    document.querySelector('#toggle-details').addEventListener('click', () => {
+      document.querySelector('#details-panel').classList.toggle('hidden');
+    });
+
+    document.querySelector('#open-dialog').addEventListener('click', () => {
+      document.querySelector('#training-dialog').showModal();
+    });
+
+    document.querySelector('#close-dialog').addEventListener('click', () => {
+      document.querySelector('#training-dialog').close();
+    });
+
+    document.querySelector('#drag-source').addEventListener('dragstart', (event) => {
+      event.dataTransfer.setData('text/plain', 'drag-source');
+    });
+
+    document.querySelector('#drop-target').addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+
+    document.querySelector('#drop-target').addEventListener('drop', (event) => {
+      event.preventDefault();
+      document.querySelector('#drop-target').textContent = 'Dropped successfully';
+    });
+
+    document.querySelector('#show-alert').addEventListener('click', () => alert('Alert opened'));
+    document.querySelector('#show-confirm').addEventListener('click', () => confirm('Confirm opened'));
+    document.querySelector('#show-prompt').addEventListener('click', () => prompt('Prompt opened', 'default'));
+
+    document.querySelector('#load-more').addEventListener('click', () => {
+      const lazyContent = document.querySelector('#lazy-content');
+      const newItem = document.createElement('p');
+      newItem.textContent = `Lazy item ${lazyContent.children.length + 1}`;
+      lazyContent.appendChild(newItem);
+    });
+
+    const host = document.querySelector('#shadow-host');
+    const shadowRoot = host.attachShadow({ mode: 'open' });
+    const shadowButton = document.createElement('button');
+    shadowButton.textContent = 'Shadow action';
+    shadowButton.id = 'shadow-action';
+    shadowRoot.appendChild(shadowButton);
+  </script>
+</body>
+</html>
+

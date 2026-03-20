@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Fresh Graduate",
+    "email": "graduate@example.com",
+    "role": "tester"
+  },
+  {
+    "name": "Automation Learner",
+    "email": "automation@example.com",
+    "role": "sdet"
+  }
+]
+

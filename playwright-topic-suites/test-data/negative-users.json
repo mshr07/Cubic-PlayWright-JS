@@ -1,0 +1,11 @@
+[
+  {
+    "name": "",
+    "email": "missing-name@example.com"
+  },
+  {
+    "name": "BadEmail",
+    "email": "not-an-email"
+  }
+]
+

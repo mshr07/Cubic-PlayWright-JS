@@ -1,0 +1,12 @@
+{
+  "name": "playwright-topic-suites",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed --project=chromium",
+    "test:debug": "playwright test --debug --project=chromium",
+    "report": "playwright show-report reports/html"
+  }
+}
+

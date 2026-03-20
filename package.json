@@ -1,0 +1,35 @@
+{
+  "name": "sdet-javascript-playwright-training",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Production-grade JavaScript and Playwright training repository for Test Engineer and SDET freshers.",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed --project=chromium",
+    "test:debug": "playwright test --debug --project=chromium",
+    "test:locators": "playwright test -c playwright-topic-suites/playwright.config.js playwright-topic-suites/tests/03-locators-and-selectors",
+    "test:api": "playwright test -c playwright-topic-suites/playwright.config.js playwright-topic-suites/tests/09-network-and-api-testing",
+    "test:api-suites": "playwright test -c api-testing-suites/playwright.api.config.js",
+    "test:smoke": "playwright test -c playwright-topic-suites/playwright.config.js --grep @smoke",
+    "foundation:run": "node javascript-foundation/12-practical-js-for-testers/run-practical-demos.js",
+    "lint": "eslint .",
+    "report": "playwright show-report reports/html"
+  },
+  "keywords": [
+    "playwright",
+    "javascript",
+    "sdet",
+    "training",
+    "automation-testing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "dotenv": "^16.6.1",
+    "eslint": "^9.23.0",
+    "globals": "^16.0.0",
+    "playwright": "^1.58.2"
+  }
+}
