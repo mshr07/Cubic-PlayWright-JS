@@ -365,10 +365,5 @@ For an e-commerce discount:
 Why it matters:
 Decision tables are very useful when business rules are based on several input combinations.
 
-## How Freshers Should Use This Document
 
-1. Start with the CLI section and practice running commands.
-2. Read the definitions before starting test design exercises.
-3. Link each concept with a real example from this repository.
-4. Revisit this file during revision and interview preparation.
 
