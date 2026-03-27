@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Explore Experiences | CrewUp{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <p class="eyebrow">Discover</p>
+                <h1>Find your next interesting plan</h1>
+            </div>
+            {% if user.is_authenticated and user.is_creator %}
+                <a class="button" href="{% url 'experiences:create' %}">Host an experience</a>
+            {% endif %}
+        </div>
+
+        <form class="filter-grid panel" method="get">
+            <input class="form-control" type="text" name="q" placeholder="Search titles, cities, tags" value="{{ filters.q }}">
+            <select class="form-control" name="category">
+                <option value="">All categories</option>
+                {% for category in categories %}
+                    <option value="{{ category.slug }}" {% if filters.category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <input class="form-control" type="text" name="city" placeholder="City" value="{{ filters.city }}">
+            <select class="form-control" name="type">
+                <option value="">Any format</option>
+                <option value="in_person" {% if filters.type == "in_person" %}selected{% endif %}>In person</option>
+                <option value="virtual" {% if filters.type == "virtual" %}selected{% endif %}>Virtual</option>
+                <option value="hybrid" {% if filters.type == "hybrid" %}selected{% endif %}>Hybrid</option>
+            </select>
+            <button class="button" type="submit">Apply filters</button>
+        </form>
+
+        <div class="card-grid">
+            {% for experience in experiences %}
+                <article class="experience-card">
+                    <div class="meta-row">
+                        <span class="pill">{{ experience.category.name }}</span>
+                        <span>{{ experience.get_event_type_display }}</span>
+                    </div>
+                    <h2><a href="{{ experience.get_absolute_url }}">{{ experience.title }}</a></h2>
+                    <p>{{ experience.summary }}</p>
+                    <div class="meta-stack">
+                        <span>{{ experience.start_at|date:"D, M j • g:i A" }}</span>
+                        <span>{{ experience.venue.city|default:"Virtual" }}</span>
+                        <span>{{ experience.seats_left }} seats left</span>
+                    </div>
+                </article>
+            {% empty %}
+                <p>No experiences matched your filters.</p>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+            <div class="pagination-row">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}&q={{ filters.q }}&category={{ filters.category }}&city={{ filters.city }}&type={{ filters.type }}">Previous</a>
+                {% endif %}
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&q={{ filters.q }}&category={{ filters.category }}&city={{ filters.city }}&type={{ filters.type }}">Next</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

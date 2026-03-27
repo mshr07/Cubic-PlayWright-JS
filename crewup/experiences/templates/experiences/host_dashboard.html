@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Host Dashboard | CrewUp{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <p class="eyebrow">Creator tools</p>
+                <h1>Host dashboard</h1>
+            </div>
+            <a class="button" href="{% url 'experiences:create' %}">Create experience</a>
+        </div>
+
+        <div class="stats-row">
+            <article class="stat-card">
+                <strong>{{ hosted_experiences|length }}</strong>
+                <span>Total experiences</span>
+            </article>
+            <article class="stat-card">
+                <strong>{{ published_count }}</strong>
+                <span>Published</span>
+            </article>
+            <article class="stat-card">
+                <strong>{{ total_bookings }}</strong>
+                <span>Total bookings</span>
+            </article>
+        </div>
+
+        <section class="panel">
+            {% for experience in hosted_experiences %}
+                <div class="list-item">
+                    <div>
+                        <strong>{{ experience.title }}</strong>
+                        <p>{{ experience.get_status_display }} • {{ experience.start_at|date:"M j, g:i A" }}</p>
+                    </div>
+                    <a href="{% url 'experiences:edit' experience.slug %}">Edit</a>
+                </div>
+            {% empty %}
+                <p class="muted">You have not created any experiences yet.</p>
+            {% endfor %}
+        </section>
+    </div>
+</section>
+{% endblock %}

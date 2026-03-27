@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile | CrewUp{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container narrow">
+        <div class="panel">
+            <h1>Edit profile</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}<small class="muted">{{ field.help_text }}</small>{% endif %}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <button class="button" type="submit">Save changes</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

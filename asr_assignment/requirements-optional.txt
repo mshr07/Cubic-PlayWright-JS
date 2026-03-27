@@ -1,0 +1,12 @@
+torch
+torchaudio
+transformers
+datasets
+evaluate
+jiwer
+accelerate
+pandas
+soundfile
+librosa
+sentencepiece
+

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }} | CrewUp{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container detail-grid">
+        <article class="panel">
+            <div class="meta-row">
+                <span class="pill">{{ object.category.name }}</span>
+                <span>{{ object.get_event_type_display }}</span>
+            </div>
+            <h1>{{ object.title }}</h1>
+            <p class="lead">{{ object.summary }}</p>
+            <p>{{ object.description }}</p>
+            <div class="meta-stack">
+                <span>{{ object.start_at|date:"D, M j, g:i A" }} to {{ object.end_at|date:"g:i A" }}</span>
+                <span>{{ object.venue.name|default:"Virtual session" }}{% if object.venue %}, {{ object.venue.city }}{% endif %}</span>
+                <span>Hosted by {{ object.host.full_name|default:object.host.username }}</span>
+                <span>{{ object.seats_left }} seats left</span>
+            </div>
+        </article>
+
+        <aside class="panel">
+            <p class="price">Rs. {{ object.price }}</p>
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'experiences:book' object.slug %}">
+                    {% csrf_token %}
+                    <button class="button button-block" type="submit">{% if has_booking %}Book again / refresh{% else %}Reserve seat{% endif %}</button>
+                </form>
+                <form method="post" action="{% url 'experiences:favorite' object.slug %}">
+                    {% csrf_token %}
+                    <button class="button button-secondary button-block" type="submit">
+                        {% if has_favorited %}Remove from saved{% else %}Save for later{% endif %}
+                    </button>
+                </form>
+            {% else %}
+                <a class="button button-block" href="{% url 'accounts:login' %}">Login to book</a>
+            {% endif %}
+        </aside>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container detail-grid">
+        <section class="panel">
+            <h2>Reviews</h2>
+            {% for review in object.reviews.all %}
+                <div class="review-item">
+                    <strong>{{ review.headline }}</strong>
+                    <p>{{ review.comment }}</p>
+                    <small>{{ review.user.full_name|default:review.user.username }} • {{ review.rating }}/5</small>
+                </div>
+            {% empty %}
+                <p class="muted">No reviews yet.</p>
+            {% endfor %}
+        </section>
+
+        {% if user.is_authenticated %}
+            <section class="panel">
+                <h2>Share your review</h2>
+                <form method="post" action="{% url 'experiences:review' object.slug %}">
+                    {% csrf_token %}
+                    {% for field in review_form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                    <button class="button" type="submit">Submit review</button>
+                </form>
+            </section>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

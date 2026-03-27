@@ -14,3 +14,4 @@ test('reusing authenticated state: create a new context from stored state', asyn
   await expect(restoredPage.getByText('Welcome to the SDET dashboard')).toBeVisible();
   await restoredContext.close();
 });
+

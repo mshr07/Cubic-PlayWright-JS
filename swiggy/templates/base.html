@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Swiggy{% endblock %}</title>
+    <style>
+        :root {
+            --brand: #fc8019;
+            --brand-dark: #db6d12;
+            --text: #1f1f1f;
+            --muted: #666;
+            --surface: #ffffff;
+            --page: #fff6ed;
+            --border: #f0d2b3;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background: linear-gradient(180deg, #fff7ef 0%, #fff1e3 100%);
+            color: var(--text);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .container {
+            width: min(1100px, calc(100% - 2rem));
+            margin: 2rem auto;
+        }
+
+        .hero,
+        .card,
+        .restaurant-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(252, 128, 25, 0.08);
+        }
+
+        .hero {
+            padding: 2rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .hero h1,
+        .card h1,
+        .card h2 {
+            margin: 0;
+        }
+
+        .hero p,
+        .subtle {
+            color: var(--muted);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .button,
+        button {
+            background: var(--brand);
+            color: #fff;
+            border: 0;
+            border-radius: 999px;
+            padding: 0.85rem 1.3rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .button.secondary {
+            background: #fff;
+            color: var(--brand);
+            border: 1px solid var(--brand);
+        }
+
+        .auth-wrapper {
+            max-width: 480px;
+            margin: 2rem auto;
+        }
+
+        .card {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.45rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid #e5c4a2;
+            background: #fffdfb;
+            font-size: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            padding: 1.1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 1.7rem;
+            color: var(--brand);
+        }
+
+        .restaurant-card {
+            padding: 1.4rem;
+        }
+
+        .restaurant-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.6rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        .messages {
+            list-style: none;
+            padding: 0;
+        }
+
+        .messages li {
+            background: #fff;
+            border-left: 4px solid var(--brand);
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+        }
+
+        .errors {
+            color: #b42318;
+            margin: 0.5rem 0 0;
+            padding-left: 1rem;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.9fr);
+            gap: 1.25rem;
+            align-items: start;
+            margin-top: 1.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .restaurant-topline,
+        .menu-item,
+        .cart-row,
+        .price-row,
+        .cart-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .restaurant-topline {
+            align-items: start;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.85rem 0 1rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.88rem;
+            background: #fff3e8;
+            color: #9a4e10;
+            border: 1px solid #f0d2b3;
+        }
+
+        .menu-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .menu-item {
+            align-items: center;
+            background: #fffdfa;
+            border: 1px solid #f2dfcb;
+            border-radius: 14px;
+            padding: 0.9rem 1rem;
+        }
+
+        .menu-item p,
+        .cart-row p,
+        .price-row p {
+            margin: 0.15rem 0;
+        }
+
+        .menu-item .button {
+            padding: 0.65rem 1rem;
+        }
+
+        .cart-panel {
+            position: sticky;
+            top: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .cart-items {
+            display: grid;
+            gap: 0.85rem;
+            margin: 1rem 0 1.25rem;
+        }
+
+        .cart-row {
+            align-items: center;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid #f3dfcb;
+        }
+
+        .qty-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid #f0d2b3;
+            border-radius: 999px;
+            padding: 0.25rem 0.45rem;
+            background: #fff;
+        }
+
+        .qty-button {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border-radius: 50%;
+            background: #fff3e8;
+            color: var(--brand);
+            font-weight: 700;
+        }
+
+        .checkout-button {
+            width: 100%;
+            margin-top: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .empty-state {
+            padding: 1rem;
+            border: 1px dashed #e7c39c;
+            border-radius: 14px;
+            color: var(--muted);
+            background: #fffdfb;
+        }
+
+        .cart-summary {
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .price-row.total {
+            font-size: 1.08rem;
+            font-weight: 700;
+            padding-top: 0.65rem;
+            border-top: 1px solid #f0d2b3;
+        }
+
+        .checkout-note {
+            margin-top: 0.85rem;
+            color: #0f7b4c;
+            background: #eefcf5;
+            border: 1px solid #b7ebcc;
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+
+            .restaurant-topline,
+            .menu-item,
+            .cart-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="brand" href="{% url 'home' %}">Swiggy</a>
+        <div class="nav-links">
+            <a href="{% url 'restaurant-list-api' %}">API</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a class="button secondary" href="{% url 'signup' %}">Sign up</a>
+            {% endif %}
+        </div>
+    </nav>
+    <main class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

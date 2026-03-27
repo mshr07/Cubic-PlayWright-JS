@@ -6,3 +6,4 @@ test('XML response validation: some enterprise APIs still return XML', async ({ 
   expect(body).toContain('<status>ok</status>');
 });
 
+
