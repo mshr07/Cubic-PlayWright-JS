@@ -5,3 +5,4 @@ test('response headers validation: verify content type and metadata', async ({ r
   const response = await request.get('/api/users');
   expectJsonContentType(response);
 });
+

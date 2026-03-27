@@ -15,5 +15,6 @@ async function runAsyncDemo() {
     console.error('Async failure', error.message);
   }
 }
+
 await runAsyncDemo();
 
