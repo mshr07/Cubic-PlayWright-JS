@@ -36,14 +36,7 @@ JavaScript comes first because Playwright is easiest to learn when core language
 7. Smoke, regression, and end-to-end suite organization
 8. Post-Playwright SDET topics
 
-## Suggested Teaching Path
 
-1. Week 1: Teach `javascript-foundation/01-basics` through `javascript-foundation/06-scope-and-hoisting`
-2. Week 2: Teach modules, errors, async JavaScript, DOM, and JSON handling
-3. Week 3: Start `playwright-topic-suites/01-playwright-fundamentals` through `05-assertions`
-4. Week 4: Cover waits, browser context, complex UI, and network testing
-5. Week 5: Cover data-driven testing, POM, fixtures, debugging, and reporting
-6. Week 6: Cover cross-browser execution, smoke/regression/E2E organization, and mini framework discussions
 
 ## How To Run
 
